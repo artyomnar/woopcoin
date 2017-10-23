@@ -1,0 +1,102 @@
+.nav
+  background-color: $aB
+
+.header .nav
+  margin-left: -5px
+
+.nav-list > li
+  position: relative
+  display: inline-block
+  vertical-align: top
+  z-index: 2
+
+.nav-list__item
+  position: relative
+  display: block
+  padding: 12px 15px
+  color: #fff
+  font-size: 20px
+  line-height: 1
+  text-decoration: none
+  cursor: pointer
+
+.nav-list__item::before
+  content: ''
+  position: absolute
+  top: 17px
+  right: 9px
+  display: none
+  width: 8px
+  height: 8px
+  border: 1px solid #fff
+  border-top: none
+  border-right: none
+  transform: rotate(-45deg)
+
+.nav-list__item:hover
+  color: #fff
+  text-decoration: none
+  background-color: #003e60
+
+span.nav-list__item
+  padding-right: 25px
+
+span.nav-list__item::before
+  display: block
+
+.nav-list .nav-list-dropdown
+  position: absolute
+  left: 0
+  top: 44px
+  z-index: 2
+
+.nav-list li:hover .nav-list-dropdown
+  display: block
+
+.nav-list-dropdown
+  display: none
+  font-size: 0
+  background-color: #e8e8e8
+
+.nav-list-dropdown--col
+  min-width: 420px
+
+.nav-list-dropdown ul
+  display: inline-block
+  vertical-align: top
+  min-width: 200px
+
+.nav-list-dropdown ul + ul
+  margin-left: 10px
+
+.nav-list-dropdown a
+  display: block
+  padding: 15px 13px 13px
+  color: #282828
+  font-size: 16px
+  line-height: 1
+  text-decoration: none
+
+.nav-list-dropdown a:hover
+  background: #b1b1b1
+  color: #fff
+  text-decoration: none
+  
+.nav-list-dropdown__btn-link
+  display: block
+  padding: 15px 13px 13px
+  font-size: 16px
+  line-height: 1
+  color: #282828
+  background-color: #fac02e
+  text-decoration: none
+  text-align: center
+
+.nav-list-dropdown .nav-list-dropdown__btn-link:hover
+  text-decoration: none
+  color: #282828
+  background-color: #fac02e
+  font-weight: 600
+
+
+

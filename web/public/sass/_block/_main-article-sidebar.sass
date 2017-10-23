@@ -1,0 +1,37 @@
+.main-article-sidebar input[name="articleTab"]
+  display: none
+
+.main-article-sidebar__controllers
+  margin-bottom: 10px
+  border-bottom: 1px solid #1876aa
+  font-size: 0
+
+.main-article-sidebar__controllers label
+  display: inline-block
+  vertical-align: top
+  width: 50%
+  padding-top: 12px
+  padding-bottom: 10px
+  font-size: 18px
+  line-height: 1
+  color: #282828
+  text-align: center
+  font-weight: 500
+  text-transform: uppercase
+  
+#popularTab:checked ~ .main-article-sidebar__controllers label[for="popularTab"]
+  background-color: #46b2e0
+  color: #fff
+
+#redactorTab:checked ~ .main-article-sidebar__controllers label[for="redactorTab"]
+  background-color: #46b2e0
+  color: #fff
+
+.main-article-sidebar__tab
+  display: none
+
+#redactorTab:checked ~ .main-article-sidebar__content .main-article-sidebar__tab--redactor,
+#popularTab:checked ~ .main-article-sidebar__content .main-article-sidebar__tab--popular
+  display: block
+
+

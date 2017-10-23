@@ -1,0 +1,51 @@
+.crypto .currency-list
+  position: absolute
+  top: 30px
+  left: -35px
+  z-index: 2
+
+.currency-list__icon
+  position: relative
+  display: block
+  width: 24px
+  height: 24px
+  background-color: #1f8cc9
+  border-radius: 50%
+
+.currency-list__icon:hover
+  background-color: #003e60
+
+
+.currency-list__icon::before
+  content: ''
+  position: absolute
+  top: 50%
+  left: 50%
+  display: block
+  width: 6px
+  height: 6px
+  border: 1px solid #fff
+  border-top: none
+  border-right: none
+  transform: translate(-50%, -50%) rotate(-45deg)
+
+.currency-list__dropdown
+  position: absolute
+  left: 0
+  top: 30px
+  width: 125px
+  display: none
+  background-color: #e8e8e8
+  z-index: 2
+
+.currency-list__dropdown-item
+  display: block
+  padding: 12px 10px 10px
+  font-size: 14px
+  line-height: 1
+  color: #282828
+  cursor: pointer
+
+.currency-list__dropdown-item:hover
+  color: #fff
+  background-color: #003e60

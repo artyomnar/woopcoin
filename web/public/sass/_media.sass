@@ -1,0 +1,121 @@
+@import "vars"
+
+/*==========  Desktop First  ==========*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px)
+  .article__img-wrapper
+    height: 195px
+
+  .nav,
+  .header__links
+    display: none
+
+
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px)
+  .social-links
+    text-align: left
+
+  .footer .social-links
+    margin-top: 20px
+    margin-bottom: 30px
+
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px)
+  .article__img-wrapper
+    height: auto
+    max-height: 460px
+
+  .article__img-wrapper img
+    position: static
+    width: 100%
+    transform: none
+
+  .header .logo-descr
+    display: none
+
+  .header .logo
+    width: 100%
+
+  .crypto .currency-list
+    top: -10px
+    left: -40px
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px)
+  .footer-links-list
+    text-align: center
+
+  .footer-links-list li
+    margin-left: 20px
+    margin-right: 20px
+    margin-bottom: 15px
+
+  .footer-links-list li+li
+    margin-left: 20px
+
+  .social-links
+    text-align: center
+
+  .main-article
+    display: none
+
+  .crypto
+    padding-top: 20px
+    text-align: center
+
+  .crypto .currency-list
+    top: -10px
+    left: 50%
+    transform: translateX(-50%)
+
+  .currency-list__dropdown
+    left: 50%
+    transform: translateX(-50%)
+
+  .crypto .name
+    font-size: 18px
+
+  .crypto .value
+    font-size: 14px
+
+
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px)
+	/**/
+
+
+/*==========  Mobile First  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px)
+	/**/
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px)
+	/**/
+
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px)
+  .container
+    width: 750px
+
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px)
+  .container
+    width: 970px
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px)
+  .container
+    width: 100%
+

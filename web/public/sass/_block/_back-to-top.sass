@@ -1,0 +1,36 @@
+.back-to-top
+  position: relative
+  width: 55px
+  height: 55px
+  border: 1px solid #7f7f7f
+  border-radius: 50%
+  opacity: .8
+  &:hover
+    opacity: 1
+
+.back-to-top::before
+  content: ''
+  position: absolute
+  top: 17px
+  left: 50%
+  display: block
+  width: 10px
+  height: 10px
+  margin-left: -5px
+  border: 1px solid #7f7f7f
+  border-right: none
+  border-bottom: none
+  transform: rotate(45deg)
+
+.back-to-top::after
+  content: ''
+  position: absolute
+  top: 17px
+  left: 50%
+  width: 1px
+  height: 20px
+  background-color: #7f7f7f
+  transform: translateX(-50%)
+
+.start-page .back-to-top
+  margin-top: -50px

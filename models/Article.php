@@ -21,6 +21,7 @@ use yii\helpers\ArrayHelper;
  * @property integer $author_id
  * @property integer $status
  * @property integer $category_id
+ * @property integer $is_top
  *
  * @property Category $category
  * @property ArticleTag[] $articleTags
@@ -47,7 +48,7 @@ class Article extends ActiveRecord
 //            [['date'], 'safe'],
             [['date'], 'date', 'format'=>'php:Y-m-d'],
             [['date'], 'default', 'value'=>date('Y-m-d')],
-            [['viewed', 'comments', 'author_id', 'status', 'category_id'], 'integer'],
+            [['viewed', 'comments', 'author_id', 'status', 'category_id', 'is_top'], 'integer'],
             [['title', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -70,6 +71,7 @@ class Article extends ActiveRecord
             'author_id' => 'ID Автора',
             'status' => 'Статус',
             'category_id' => 'ID Категории',
+            'is_top' => 'Главная новость',
         ];
     }
 
@@ -100,6 +102,20 @@ class Article extends ActiveRecord
     public function getResource(){
         return '';
 //        return ($this->resource)? $this->resource : '';
+    }
+
+    public function getMainNews(){
+//        $mainNews = Article::findAll(['status' => 1, 'is_top' => 1]);
+        $mainNews = Article::findOne(['status' => 1, 'is_top' => 1]);
+        if ($mainNews){
+            return $mainNews;
+        }
+        return null;
+    }
+
+    public function getCategoryName(){
+        $category = Category::findOne(['id' => $this->category_id]);
+        return $category->title;
     }
 
     //imported functions
@@ -159,9 +175,9 @@ class Article extends ActiveRecord
         return Yii::$app->formatter->asDate($this->date);
     }
 
-    public static function getAll($pageSize = 5){
+    public static function getAll($pageSize = 9){
         // build a DB query to get all articles with status = 1
-        $query = Article::find();
+        $query = Article::find()->where(['status' => 1, 'is_top' => 0]);
 
         // get the total number of articles (but do not fetch the article data yet)
         $count = $query->count();
@@ -180,7 +196,7 @@ class Article extends ActiveRecord
     }
 
     public static function getPopular(){
-        return Article::find()->orderBy('viewed desc')->limit(5)->all();
+        return Article::find()->where(['status' => 1, 'is_top' => 0])->orderBy('viewed desc')->limit(5)->all();
     }
 
     public static function getRecent(){

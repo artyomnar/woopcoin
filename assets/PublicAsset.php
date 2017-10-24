@@ -23,6 +23,6 @@ class PublicAsset extends AssetBundle
         "public/js/jquery.min.js",
     ];
     public $depends = [
-
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

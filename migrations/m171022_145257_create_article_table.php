@@ -19,11 +19,12 @@ class m171022_145257_create_article_table extends Migration
             'content' => $this->text(),
             'date' => $this->date()->notNull(),
             'image' => $this->string(),
-            'viewed' => $this->integer(),
+            'viewed' => $this->integer()->defaultValue(0),
             'comments' => $this->integer(),
             'author_id' => $this->integer(),
-            'status' => $this->integer(),
+            'status' => $this->integer()->defaultValue(1),
             'category_id' => $this->integer(),
+            'is_top' => $this->integer()->defaultValue(0),
         ]);
 
         $this->createIndex(

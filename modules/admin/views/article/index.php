@@ -27,16 +27,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description:ntext',
-            'content:ntext',
+            //'content:ntext',
             'date',
             [
                 'format' => 'html',
-                'label' => 'Image',
+                'label' => 'Изображение',
                 'value' => function($data){
                     return Html::img($data->getImage(), ['height' => 150, 'width' => 200]);
                 }
             ],
-            // 'image',
+            [
+                'label' => 'Главная новость',
+                'value' => function($data){
+                    return ($data->is_top === 0)? 'Нет' : 'Да';
+                }
+            ],
+
             // 'viewed',
             // 'comments',
             // 'author_id',

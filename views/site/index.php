@@ -1,28 +1,29 @@
 <?php
-use yii\helpers\Url;
-use yii\widgets\LinkPager;
+    use yii\helpers\Url;
+    use yii\widgets\LinkPager;
 ?>
 <main class="main start-page">
     <div class="container">
         <div class="banner"></div>
 
         <div class="row">
+            <?php if (!empty($mainNews)):?>
             <div class="col-lg-8 col-sm-12">
-                <div class="main-article" style="background-image: url(/public/images/articles/1.jpg)">
+                <div class="main-article" style="background-image: url(<?=$mainNews->getImage();?>)">
                     <a class="main-article__link" href="#">
                         <p class="main-article__descr">
-                            Коллапс биткойнов неизбежен
-                            по мнению профессора экономики Гарварда
+                            <?=$mainNews->title;?>
                         </p>
                     </a>
 
                     <div class="main-article__footer">
-                        <a href="" class="main-article__footer-link">Категория (финтех)</a><span class="separator">|</span>
-                        <a href="" class="main-article__footer-link">Автор</a><span class="separator">|</span>
-                        <span class="main-article__footer-date">12.10.2017</span>
+                        <a href="" class="main-article__footer-link">Категория <?= $mainNews->getCategoryName()?></a><span class="separator">|</span>
+                        <a href="" class="main-article__footer-link"><?=$mainNews->getAuthor();?></a><span class="separator">|</span>
+                        <span class="main-article__footer-date"><?=$mainNews->getDate();?></span>
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
 
             <div class="col-lg-4 visible-lg">
                 <div class="main-article-sidebar">
@@ -35,17 +36,16 @@ use yii\widgets\LinkPager;
                     </div>
 
                     <div class="main-article-sidebar__content">
-                        <div class="main-article-sidebar__tab main-article-sidebar__tab--popular">
-                            <a href="#" class="article-mini">
-                                <p>
-                                    Коллапс биткойнов неизбежен
-                                    по мнению профессора экономики Гарварда
-                                </p>
-                                <div class="article-mini__icons clearfix">
-                                    <span class="right viewed">54 683</span>
-                                </div>
-                            </a>
-                        </div>
+                        <?php foreach ($popular as $popularArticle): ?>
+                            <div class="main-article-sidebar__tab main-article-sidebar__tab--popular">
+                                <a href="#" class="article-mini">
+                                    <p><?= $popularArticle->title; ?></p>
+                                    <div class="article-mini__icons clearfix">
+                                        <span class="right viewed"><?= $popularArticle->viewed; ?></span>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endforeach; ?>
                         <div class="main-article-sidebar__tab main-article-sidebar__tab--redactor">
                             <a href="#" class="article-mini">
                                 <p>
@@ -85,9 +85,7 @@ use yii\widgets\LinkPager;
             <?php endforeach; ?>
         </div>
         <?php
-            echo LinkPager::widget([
-                    'pagination' => $pagination,
-                ]);
+            echo LinkPager::widget(['pagination' => $pagination,]);
         ?>
 <!--        <a href="#" class="load-more"><i class="load-more__icon"></i>Показать больше новостей</a>-->
 

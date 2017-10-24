@@ -63,12 +63,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $data = Article::getAll(9);
+        $data = Article::getAll(12);
         $popular = Article::getPopular();
         $recent = Article::getRecent();
         $categories = Category::getAll();
         $model = new Article;
-        $author = $model->getAuthor();
+        $mainNews = $model->getMainNews();
 
         return $this->render('index',
             [
@@ -77,7 +77,7 @@ class SiteController extends Controller
                 'popular'=>$popular,
                 'recent'=>$recent,
                 'categories'=>$categories,
-                'author'=>$author
+                'mainNews'=>$mainNews,
             ]);
     }
 

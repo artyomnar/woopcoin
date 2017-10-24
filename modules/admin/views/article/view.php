@@ -34,14 +34,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description:ntext',
-            'content:ntext',
+            //'content:ntext',
             'date',
             'image',
             'viewed',
             'comments',
             'author_id',
-            'status',
+            [
+                'label' => 'Статус',
+                'value' => function($data){
+                    return ($data->status === 1)? 'Активна' : 'Неактивна';
+                }
+            ],
             'category_id',
+            [
+                'label' => 'Главная новость',
+                'value' => function($data){
+                    return ($data->is_top === 0)? 'Нет' : 'Да';
+                }
+            ],
         ],
     ]) ?>
 

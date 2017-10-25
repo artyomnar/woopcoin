@@ -10,15 +10,15 @@
             <?php if (!empty($mainNews)):?>
             <div class="col-lg-8 col-sm-12">
                 <div class="main-article" style="background-image: url(<?=$mainNews->getImage();?>)">
-                    <a class="main-article__link" href="#">
+                    <a class="main-article__link" href="<?=Url::toRoute(['site/view','id'=>$mainNews->id])?>">
                         <p class="main-article__descr">
                             <?=$mainNews->title;?>
                         </p>
                     </a>
 
                     <div class="main-article__footer">
-                        <a href="" class="main-article__footer-link">Категория <?= $mainNews->getCategoryName()?></a><span class="separator">|</span>
-                        <a href="" class="main-article__footer-link"><?=$mainNews->getAuthor();?></a><span class="separator">|</span>
+                        <a href="<?=Url::toRoute(['site/category','id'=>$mainNews->category->id])?>" class="main-article__footer-link">Категория <?= $mainNews->getCategoryName()?></a><span class="separator">|</span>
+                        <a href="<?=Url::toRoute(['site/author-post','id'=>$mainNews->author_id])?>" class="main-article__footer-link"><?=$mainNews->getAuthor();?></a><span class="separator">|</span>
                         <span class="main-article__footer-date"><?=$mainNews->getDate();?></span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                     <div class="main-article-sidebar__content">
                         <?php foreach ($popular as $popularArticle): ?>
                             <div class="main-article-sidebar__tab main-article-sidebar__tab--popular">
-                                <a href="#" class="article-mini">
+                                <a href="<?=Url::toRoute(['site/view','id'=>$popularArticle->id])?>" class="article-mini">
                                     <p><?= $popularArticle->title; ?></p>
                                     <div class="article-mini__icons clearfix">
                                         <span class="right viewed"><?= $popularArticle->viewed; ?></span>
@@ -73,10 +73,13 @@
                         </a>
 
                         <div class="article__footer">
-                            <div class="article__links left"><a href="#" class="link"><?=$article->getAuthor();?></a>  <a class="link" href="#"><?=$article->getResource();?></a></div>
+                            <div class="article__links left">
+                                <a href="<?=Url::toRoute(['site/author-post','id'=>$mainNews->author_id])?>" class="link"><?=$article->getAuthor();?></a>
+                                <a class="link" href="<?=Url::toRoute(['site/view','id'=>$article->id])?>"><?=$article->getResource();?></a>
+                            </div>
                             <span class="article__time right"><?=$article->getDate();?></span>
 
-                            <a href="#" class="article__descr">
+                            <a href="<?=Url::toRoute(['site/view','id'=>$article->id])?>" class="article__descr">
                                 <?=$article->title;?>
                             </a>
                         </div>

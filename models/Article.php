@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\data\Pagination;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
@@ -116,6 +117,54 @@ class Article extends ActiveRecord
     public function getCategoryName(){
         $category = Category::findOne(['id' => $this->category_id]);
         return $category->title;
+    }
+
+    public static function getArticlesByAuthor($id){
+        // build a DB query to get all articles with status = 1
+        $query = Article::find()->where(['author_id'=>$id, 'status' => 1]);
+
+        // get the total number of articles (but do not fetch the article data yet)
+        $count = $query->count();
+
+        // create a pagination object with the total count
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
+
+        // limit the query using the pagination and retrieve the articles
+        $articles = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        $data['articles'] = $articles;
+        $data['pagination'] = $pagination;
+
+        return $data;
+    }
+
+    public static function getArticlesByTag($id){
+        // build a DB query to get all articles with status = 1
+        $articlesTags = ArticleTag::findAll(['tag_id'=>$id]);
+        $data = array();
+        foreach ($articlesTags as $tag){
+            $data[] = $tag->article_id;
+        }
+
+        $query = new ActiveQuery(Article::getTableSchema());
+        $query->createCommand('SELECT * FROM article WHERE id IN '.$data);
+
+
+        // get the total number of articles (but do not fetch the article data yet)
+        $count = count($articlesTags);
+
+        // create a pagination object with the total count
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
+
+        // limit the query using the pagination and retrieve the articles
+        $articles = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        $data['articles'] = $articles;
+        $data['pagination'] = $pagination;
+
+        return $data;
     }
 
     //imported functions

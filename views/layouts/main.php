@@ -7,6 +7,7 @@ use app\assets\PublicAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 
 PublicAsset::register($this);
@@ -30,7 +31,7 @@ PublicAsset::register($this);
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-4 col-sm-5 col-xs-3">
-                    <a href="/" class="logo-link">
+                    <a href="<?=Url::toRoute(['site/index'])?>" class="logo-link">
                         <div class="logo"></div>
                         <div class="logo-descr">Новости блокчейна и криптовалют</div>
                     </a>
@@ -183,7 +184,7 @@ PublicAsset::register($this);
     <div class="container">
         <div class="row">
             <div class="col-md-4 hidden-sm hidden-xs">
-                <a href="/" class="logo-link">
+                <a href="<?=Url::toRoute(['site/index'])?>" class="logo-link">
                     <div class="logo"></div>
                     <p class="logo-descr">Портал новостей о Блокчей, Биткойн, Финтех</p>
                 </a>

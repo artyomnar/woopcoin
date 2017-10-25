@@ -64,7 +64,7 @@ class Category extends \yii\db\ActiveRecord
 
     public static function getArticlesByCategory($id){
         // build a DB query to get all articles with status = 1
-        $query = Article::find()->where(['category_id'=>$id]);
+        $query = Article::find()->where(['category_id'=>$id, 'status' => 1]);
 
         // get the total number of articles (but do not fetch the article data yet)
         $count = $query->count();

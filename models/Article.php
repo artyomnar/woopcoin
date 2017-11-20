@@ -100,7 +100,10 @@ class Article extends ActiveRecord
         return $this->hasMany(Comment::className(), ['article_id' => 'id']);
     }
 
-    public function getResource(){
+    public function getResource($id = null){
+        if($id){
+            return '';
+        }
         return '';
 //        return ($this->resource)? $this->resource : '';
     }
@@ -142,29 +145,33 @@ class Article extends ActiveRecord
     public static function getArticlesByTag($id){
         // build a DB query to get all articles with status = 1
         $articlesTags = ArticleTag::findAll(['tag_id'=>$id]);
-        $data = array();
+
+        $queryString = '';
         foreach ($articlesTags as $tag){
-            $data[] = $tag->article_id;
+            $queryString.=' (id = '.$tag->article_id.') OR ';
         }
+        $length = strlen($queryString);
+        $queryString = substr($queryString, 0, $length-4);
 
-        $query = new ActiveQuery(Article::getTableSchema());
-        $query->createCommand('SELECT * FROM article WHERE id IN '.$data);
+        $connection = Yii::$app->db;
+        $query = $connection->createCommand('SELECT * FROM article WHERE '.$queryString);
 
+        $articles = $query->queryAll();
 
         // get the total number of articles (but do not fetch the article data yet)
         $count = count($articlesTags);
 
         // create a pagination object with the total count
-        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 12]);
 
         // limit the query using the pagination and retrieve the articles
-        $articles = $query->offset($pagination->offset)
+        /*$articles = $query->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
         $data['articles'] = $articles;
-        $data['pagination'] = $pagination;
+        $data['pagination'] = $pagination;*/
 
-        return $data;
+        return $articles;
     }
 
     //imported functions
@@ -173,8 +180,13 @@ class Article extends ActiveRecord
         return $this->save(false);
     }
 
-    public function getImage(){
-        return ($this->image) ? '/uploads/'.$this->image : '/no-image.png';
+    public function getImage($id = null){
+        if ($id){
+            $model = Article::findOne(['id'=>$id]);
+            return ($model->image)? '/uploads/'.$model->image : '/no-image.png';
+        } else {
+            return ($this->image) ? '/uploads/' . $this->image : '/no-image.png';
+        }
     }
 
     public function deleteImage(){
@@ -220,7 +232,10 @@ class Article extends ActiveRecord
         ArticleTag::deleteAll(['article_id'=>$this->id]);
     }
 
-    public function getDate(){
+    public function getDate($id = null){
+        if ($id){
+            return Yii::$app->formatter->asDate(Article::findOne(['id'=>$id])->date);
+        }
         return Yii::$app->formatter->asDate($this->date);
     }
 
@@ -261,13 +276,22 @@ class Article extends ActiveRecord
         return $this->getComments()->where(['status'=>1])->all();
     }
 
-    public function getAuthor(){
-//        return $this->hasOne(User::className(),['id'=>'author_id']);
-        $author =  User::findOne(['id'=>$this->author_id]);
-        if ($this->author_id){
-            return $author->name;
+    public function getAuthor($id = null){
+        if ($id){
+            $model = Article::findOne(['id'=>$id]);
+            $author = User::findOne(['id' => $model->author_id]);
+            if ($author){
+                return $author->name;
+            }
+            return null;
+        } else {
+//          return $this->hasOne(User::className(),['id'=>'author_id']);
+            $author = User::findOne(['id' => $this->author_id]);
+            if ($this->author_id) {
+                return $author->name;
+            }
+            return null;
         }
-        return null;
     }
 
     public function viewedCounter(){

@@ -14,7 +14,7 @@ use yii\widgets\LinkPager;
                         </a>
 
                         <div class="article__footer">
-                            <div class="article__links left"><a href="#" class="link"><?=$article->getAuthor();?></a>  <a class="link" href="<?=Url::toRoute(['site/view','id'=>$article->id])?>"><?=$article->getResource();?></a></div>
+                            <div class="article__links left"><?=$article->getAuthor();?>  <a class="link" href="<?=Url::toRoute(['site/view','id'=>$article->id])?>"><?=$article->getResource();?></a></div>
                             <span class="article__time right"><?=$article->getDate();?></span>
 
                             <a href="<?=Url::toRoute(['site/view','id'=>$article->id])?>" class="article__descr">

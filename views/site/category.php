@@ -4,6 +4,7 @@ use yii\widgets\LinkPager;
 ?>
 <main class="main start-page">
     <div class="container">
+        <h2 align="center" style="margin-bottom: 20px;">Статьи категории <?= $categoryName ?></h2>
         <div class="row">
             <?php foreach ($articles as $article): ?>
                 <div class="col-md-4 col-sm-6 col-xs-12">
@@ -13,7 +14,7 @@ use yii\widgets\LinkPager;
                         </a>
 
                         <div class="article__footer">
-                            <div class="article__links left"><a href="#" class="link"><?=$article->getAuthor();?></a>  <a class="link" href="<?=Url::toRoute(['site/view','id'=>$article->id])?>"><?=$article->getResource();?></a></div>
+                            <div class="article__links left"><a href="<?=Url::toRoute(['site/author-post','id'=>$article->author_id])?>" class="link"><?=$article->getAuthor();?></a>  <a class="link" href="<?=Url::toRoute(['site/view','id'=>$article->id])?>"><?=$article->getResource();?></a></div>
                             <span class="article__time right"><?=$article->getDate();?></span>
 
                             <a href="<?=Url::toRoute(['site/view','id'=>$article->id])?>" class="article__descr">

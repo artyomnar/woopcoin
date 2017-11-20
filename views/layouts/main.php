@@ -170,7 +170,7 @@ PublicAsset::register($this);
                         <a href="#" class="nav-list-dropdown__btn-link">Пресс релизы</a>
                     </div>
                 </li>
-                <li><a class="nav-list__item" href="#">Глоссарий</a></li>
+                <li><a class="nav-list__item" href="<?=Url::toRoute(['site/glossary'])?>">Глоссарий</a></li>
                 <li><a class="nav-list__item" href="#">Календарь ICO</a></li>
                 <li><a class="nav-list__item" href="#">Контакты</a></li>
             </ul>

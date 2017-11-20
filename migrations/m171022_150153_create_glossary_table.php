@@ -16,6 +16,7 @@ class m171022_150153_create_glossary_table extends Migration
             'id' => $this->primaryKey(),
             'item' => $this->string(255)->notNull(),
             'description' => $this->text()->notNull(),
+            'category_id' => $this->integer()->notNull(),
         ]);
 
         $this->createIndex(
@@ -23,6 +24,15 @@ class m171022_150153_create_glossary_table extends Migration
             'glossary',
             'id'
         );
+
+        /*$this->addForeignKey(
+            'fk-glossary-category_id',
+            'glossary',
+            'category_id',
+            'glossary_category',
+            'id',
+            'CASCADE'
+        );*/
     }
 
     /**
@@ -30,6 +40,11 @@ class m171022_150153_create_glossary_table extends Migration
      */
     public function down()
     {
+        /*$this->dropForeignKey(
+            'fk-glossary-category_id',
+            'glossary'
+        );*/
+
         $this->dropTable('glossary');
     }
 }

@@ -5,9 +5,11 @@ namespace app\controllers;
 use app\models\Article;
 use app\models\Category;
 use app\models\CommentForm;
+use app\models\Glossary;
 use app\models\Tag;
 use app\models\User;
 use Yii;
+use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -170,6 +172,7 @@ class SiteController extends Controller
         $popular = Article::getPopular();
         //$recent = Article::getRecent();
         $categories = Category::getAll();
+        $categoryName = Category::findOne(['id'=>$id])->title;
 
         return $this->render('category',
             [
@@ -177,7 +180,8 @@ class SiteController extends Controller
                 'pagination'=>$data['pagination'],
                 'popular'=>$popular,
                 //'recent'=>$recent,
-                'categories'=>$categories
+                'categories'=>$categories,
+                'categoryName'=>$categoryName
             ]);
     }
 
@@ -212,19 +216,36 @@ class SiteController extends Controller
 
     public function actionArticleTag($id){
         $data = Article::getArticlesByTag($id);
-        $popular = Article::getPopular();
-        $categories = Category::getAll();
+//        $popular = Article::getPopular();
+//        $categories = Category::getAll();
 
         $tag = Tag::findOne(['id' => $id]);
         $tagName = ($tag)? $tag->title : '';
 
         return $this->render('tags',
             [
-                'articles'=>$data['articles'],
-                'pagination'=>$data['pagination'],
-                'popular'=>$popular,
+                'articles'=>$data,
+//                'articles'=>$data['articles'],
+//                'pagination'=>$data['pagination'],
                 'tagName'=>$tagName,
-                'categories'=>$categories
+//                'categories'=>$categories
             ]);
+    }
+
+    public function actionGlossary($id){
+        if ($id){
+            $glossaryItem = Glossary::findOne(['id' => $id]);
+            if (isEmpty($glossaryItem)){
+                throw new Exception('glossary item not found');
+            }
+        }
+        $categories = Category::getAll();
+
+        return $this->render('glossary',
+            [
+                'categories' => $categories,
+                'item' => (isset($glossaryItem))? $glossaryItem : null,
+            ]
+        );
     }
 }
